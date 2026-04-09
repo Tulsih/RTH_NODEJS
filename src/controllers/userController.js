@@ -4,6 +4,10 @@
 const response = require("../helper/generalResponse");
 const MessageConstant = require("../constant/MessageConstant");
 const userService = require("../services/userService");
+const buildUserFilter = require("../utils/buildUserFilter");
+const { userQuerySchema } = require("../validation/userValidation");
+const User = require("../models/user");
+const EmailService = require("../services/emailService");
 
 class UserController {
   //create user
@@ -25,7 +29,19 @@ class UserController {
   //get  all users
   async getAllUsers(req, res, next) {
     try {
-      const users = await userService.getAllUsers();
+      //validate queary
+      const Query = userQuerySchema.parse(req.query);
+
+      //build filter object
+      const filter = buildUserFilter(Query);
+
+      //pagination
+      const page = Query.page;
+      const limit = Query.limit;
+
+      //call services with filter
+      const users = await userService.getAllUsers(filter, page, limit);
+
       return response.getOkResponse(res, users);
     } catch (error) {
       console.log("error: ", error);

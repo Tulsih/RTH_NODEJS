@@ -17,7 +17,7 @@ const {
   getUserbyEmail,
 } = require("../repositories/userRepository");
 const validate = require("../validation/index");
-const userSchema = require("../validation/userValidation");
+const { userSchema } = require("../validation/userValidation");
 
 class UserService {
   //create user
@@ -43,8 +43,17 @@ class UserService {
     }
   }
   //get all users
-  async getAllUsers() {
-    return await getAllUsers();
+  async getAllUsers(filter, page, limit) {
+    const skip = (page - 1) * limit;
+
+    const user = await User.find(filter).skip(skip).limit(limit);
+    const totalUser = await User.countDocuments(filter);
+    return {
+      totalUser,
+      currentPage: page,
+      totalPage: Math.ceil(totalUser / limit),
+      user,
+    };
   }
 
   // get users by id

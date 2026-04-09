@@ -132,4 +132,25 @@ const user = z
     };
   });
 
-module.exports = user;
+const userQuerySchema = z.object({
+  //searching data
+  search: z.string().trim().optional(),
+
+  //filtering fileds
+  firstName: z.string().trim().optional(),
+  middleName: z.string().trim().optional(),
+  lastName: z.string().trim().optional(),
+  city: z.string().trim().optional(),
+  state: z.string().trim().optional(),
+  mobileNumber: z.string().trim().optional(),
+
+  gender: z.enum(listUserGender).optional(),
+  status: z.enum(listUserStatus).optional(),
+  roles: z.enum(listUserRoles).optional(),
+
+  //pagination code
+  page: z.coerce.number().min(1).default(1),
+  limit: z.coerce.number().min(1).max(100).default(3),
+});
+
+module.exports = { user, userQuerySchema };
