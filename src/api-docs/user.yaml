@@ -69,13 +69,13 @@ paths:
           name: minAge
           required: false
           schema:
-            type: string
+            type: integer
           description: Minimum age
         - in: query
           name: maxAge
           required: false
           schema:
-            type: string
+            type: integer
           description: Maximum age
         - in: query
           name: page
