@@ -7,9 +7,6 @@ const Users = require("../models/user");
 const createUser = async (userData) => {
   const user = new Users(userData);
   return await user.save();
-  //save user object into databse
-  //also writen like this
-  //return await Users.create(userData);
 };
 
 //get all users

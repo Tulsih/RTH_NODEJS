@@ -21,7 +21,6 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Listening port of ${PORT}`);
 
-  // console.log("Swagger paths:", swaggerSpec.paths);
   app.use("/swagger-ui", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   console.log(`http://localhost:${PORT}/swagger-ui`);
 });
