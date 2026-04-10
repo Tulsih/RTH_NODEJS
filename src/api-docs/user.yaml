@@ -1,14 +1,99 @@
 paths:
   /users/list:
     get:
-      summary: Get all users
+      summary: Get all users with searching, filtering and pagination
       tags:
         - Users
+      parameters:
+        - in: query
+          name: search
+          required: false
+          schema:
+            type: string
+          description: Search by firstName, middleName, lastName, mobileNumber
+        - in: query
+          name: firstName
+          required: false
+          schema:
+            type: string
+          description: Filter by first name
+        - in: query
+          name: middleName
+          required: false
+          schema:
+            type: string
+          description: Filter by middle name
+        - in: query
+          name: lastName
+          required: false
+          schema:
+            type: string
+          description: Filter by last name
+        - in: query
+          name: city
+          required: false
+          schema:
+            type: string
+          description: Filter by city
+        - in: query
+          name: state
+          required: false
+          schema:
+            type: string
+          description: Filter by state
+        - in: query
+          name: mobileNumber
+          required: false
+          schema:
+            type: string
+          description: Filter by mobileNumber
+        - in: query
+          name: gender
+          required: false
+          schema:
+            type: string
+          description: Filter by gender
+        - in: query
+          name: status
+          required: false
+          schema:
+            type: string
+          description: Filter by status
+        - in: query
+          name: roles
+          required: false
+          schema:
+            type: string
+          description: Filter by roles
+        - in: query
+          name: minAge
+          required: false
+          schema:
+            type: string
+          description: Minimum age
+        - in: query
+          name: maxAge
+          required: false
+          schema:
+            type: string
+          description: Maximum age
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+          example: 1
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+          example: 5
       responses:
         200:
           description: List of users
         400:
-          description: bad request
+          description: Bad request
         500:
           description: Internal server error
   /users/:

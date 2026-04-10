@@ -19,11 +19,11 @@ const buildUserFilter = (Query) => {
   if (Query.firstName) filter.firstName = Query.firstName;
   if (Query.middleName) filter.middleName = Query.middleName;
   if (Query.lastName) filter.lastName = Query.lastName;
-  if (Query.city) filter.city = Query.filter;
+  if (Query.city) filter.city = Query.city;
   if (Query.state) filter.state = Query.state;
   if (Query.mobileNumber) filter.mobileNumber = Query.mobileNumber;
   if (Query.gender) filter.gender = Query.gender;
-  if (Query.status) filter.state = Query.status;
+  if (Query.status) filter.status = Query.status;
   if (Query.roles) filter.roles = Query.roles;
 
   //age range filter
