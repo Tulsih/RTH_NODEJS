@@ -17,14 +17,15 @@ const {
   getUserbyEmail,
 } = require("../repositories/userRepository");
 const validate = require("../validation/index");
-const { userSchema } = require("../validation/userValidation");
+const { user } = require("../validation/userValidation");
+const emailService = require("./emailService");
 
 class UserService {
   //create user
   async createUser(data) {
     try {
       // zod validation
-      const valiadtion = await validate(userSchema, data);
+      const valiadtion = await validate(user, data);
       if (!valiadtion.success) {
         throw new InvalidRequestException(valiadtion.message);
       }
@@ -36,6 +37,9 @@ class UserService {
       }
 
       const savedUser = await createUser(validateData);
+
+      //send welcome email to user
+      await emailService.welcomeUserEmail(savedUser);
       return savedUser;
     } catch (error) {
       console.error("Error :", error);

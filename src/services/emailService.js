@@ -7,6 +7,50 @@ const { error } = require("console");
 const user = require("../models/user");
 
 class EmailService {
+  //welcome user email
+  async welcomeUserEmail(user) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+      await transporter.verify();
+
+      //load mustache templte
+      const templatePath = path.join(
+        __dirname,
+        "../templates/welcomeUser.html",
+      );
+      const template = fs.readFileSync(templatePath, "utf-8");
+
+      //read templted
+
+      const html = Mustache.render(template, {
+        fullName: user.fullName,
+        email: user.email,
+        roles: user.roles,
+        status: user.status,
+        loginUrl: process.env.LOGIN_URL,
+        year: new Date().getFullYear(),
+      });
+
+      //send email
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: user.email,
+        subject: "Welcome to Our Platform",
+        html: html,
+      });
+
+      console.log("welcome email send succesfully");
+    } catch (error) {
+      console.log("Email Erro:", error.message);
+    }
+  }
+
   //retun value to send user
   getSafeUser(user) {
     return {

@@ -15,7 +15,6 @@ const validate = async (schema, data) => {
       success: false,
       // code: errorDetail.code,
       message: errorDetail.message,
-      path: errorDetail.path,
     };
   }
 };
