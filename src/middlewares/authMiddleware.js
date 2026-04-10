@@ -29,11 +29,9 @@ const authenticate = (req, res, next) => {
       return response.unAuthorizeResponse(res, MessageConstant.INVALID_TOKEN);
     }
     const token = parts[1];
-    console.log("extracted token ", token);
 
     //verify token
     const decoded = verifyToken(token);
-    console.log("decoded token ", decoded);
 
     //check accessType
     if (decoded.accessType !== AccessType.LOGIN) {
@@ -65,10 +63,8 @@ const verifyTempToken = (req, res, next) => {
       return response.unAuthorizeResponse(res, MessageConstant.INVALID_TOKEN);
     }
     const token = parts[1];
-    console.log("extracted token ", token);
 
     const decode = verifyToken(token);
-    console.log("decoded token ", decode);
 
     if (decode.accessType !== AccessType.VERIFY_OTP) {
       throw new UnauthorizedException(MessageConstant.INVALID_ACCEES_TYPE);
