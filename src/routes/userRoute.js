@@ -19,7 +19,7 @@ route.post("/verify-otp", verifyTempToken, authController.verifyOtp);
 
 route.patch("/:id/unblock", authenticate, isAdmin, authController.unblockUser);
 
-route.get("/list", userController.getAllUsers);
+route.post("/list", userController.getAllUsers);
 
 route.get("/:id", userController.getUserbyId);
 route.put("/:id", userController.updateUsers);

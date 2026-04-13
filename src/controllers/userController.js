@@ -30,7 +30,7 @@ class UserController {
   async getAllUsers(req, res, next) {
     try {
       //validate queary
-      const Query = userQuerySchema.parse(req.query);
+      const Query = userQuerySchema.parse(req.body);
 
       //build filter object
       const filter = buildUserFilter(Query);
